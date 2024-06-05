@@ -1,0 +1,51 @@
+.navbar-nav .nav-link {
+    font-size: 18px;
+    font-weight: 300;
+    color: white;
+    padding: 10px 20px;
+    z-index: 15;
+}
+
+.navbar {
+    background-color: black;
+}
+
+.header-title {
+    background-color: #777777;
+    padding: 31px;
+    margin: 2px;
+    text-align: center;
+}
+
+.header-title h2 {
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 992px) {
+    .navbar-nav .nav-link {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .header-title h2 {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-nav .nav-link {
+        font-size: 14px;
+    }
+
+    .header-title h2 {
+        font-size: 30px;
+    }
+}
+
+* {
+    font-family: serif;
+}
