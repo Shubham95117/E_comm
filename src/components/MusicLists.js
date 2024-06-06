@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
+import "./MusicList.css";
 import { productsArr } from "../data/product"; // Ensure the path is correct
 
 const MusicLists = () => {
@@ -33,10 +33,13 @@ const MusicLists = () => {
                 <Card.Body>
                   <Card.Title>{product.title}</Card.Title>
                   <div className="mt-auto d-flex justify-content-between">
-                    <Card.Text>${product.price}</Card.Text>
+                    <Card.Text style={{ fontSize: "20px" }}>
+                      ${product.price}
+                    </Card.Text>
                     <Button
                       variant="primary"
                       onClick={() => handleAddToCart(product.title)}
+                      style={{ height: "35px" }}
                     >
                       Add to Cart
                     </Button>
