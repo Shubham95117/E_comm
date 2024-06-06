@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,10 +6,15 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "./MusicList.css";
 import { productsArr } from "../data/product"; // Ensure the path is correct
+import CartContext from "../store/cart-context";
 
 const MusicLists = () => {
-  const handleAddToCart = (productTitle) => {
-    alert(`${productTitle} added to cart`);
+  const cartContext = useContext(CartContext);
+
+  const addCartHandler = (item) => {
+    cartContext.addItems(item);
+    alert(` added to cart`);
+    console.log(cartContext.cartItems);
   };
 
   return (
@@ -38,7 +43,7 @@ const MusicLists = () => {
                     </Card.Text>
                     <Button
                       variant="primary"
-                      onClick={() => handleAddToCart(product.title)}
+                      onClick={() => addCartHandler(product)}
                       style={{ height: "35px" }}
                     >
                       Add to Cart

@@ -7,7 +7,6 @@ import Cart from "../components/Cart";
 
 const Header = () => {
   const [show, setShow] = useState(false);
-
   return (
     <>
       <Navbar expand="lg" className="navbar" data-bs-theme="dark">
@@ -22,12 +21,12 @@ const Header = () => {
                 Link
               </Nav.Link>
               <Nav.Link href="#about" className="mx-4">
-                About
+                About{" "}
               </Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link href="#cart" onClick={() => setShow(!show)}>
-                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
