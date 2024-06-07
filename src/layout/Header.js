@@ -4,11 +4,23 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
 import Cart from "../components/Cart";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [show, setShow] = useState(false);
-
+  const location = useLocation();
+  const renderPlayButton = () => {
+    if (location.pathname === "/") {
+      return (
+        <>
+          <button className="albumBtn">Get Our Latest Album</button>
+          <br />
+          <i class="fa fa-play playBtn" aria-hidden="true"></i>
+        </>
+      );
+    }
+    return null;
+  };
   return (
     <>
       <Navbar expand="lg" className="navbar" data-bs-theme="dark">
@@ -17,7 +29,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
               <Nav.Link as={NavLink} to="/" className="mx-4">
-                Home
+                HOME
               </Nav.Link>
               <Nav.Link as={NavLink} to="/store" className="mx-4">
                 STORE
@@ -26,16 +38,17 @@ const Header = () => {
                 ABOUT
               </Nav.Link>
             </Nav>
-            <Nav>
-              <Nav.Link href="#cart" onClick={() => setShow(!show)}>
-                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-              </Nav.Link>
-            </Nav>
           </Navbar.Collapse>
         </Container>
+        <i
+          className="fa fa-shopping-cart"
+          aria-hidden="true"
+          onClick={() => setShow(!show)}
+        ></i>
       </Navbar>
       <div className="header-title">
         <h2>The Generics</h2>
+        {renderPlayButton()}
       </div>
       {show && <Cart />}
     </>

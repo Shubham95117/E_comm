@@ -4,9 +4,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import abtImg from "../data/Band Members.png";
+import classes from "./About.module.css";
 const About = () => {
   return (
     <Container>
+      <div>
+        <h2 className={classes.title}>About</h2>
+      </div>
       <Row className="align-items-center">
         <Col md={6}>
           <div className="d-flex justify-content-center align-items-center mb-4">
@@ -14,7 +18,7 @@ const About = () => {
               src={abtImg}
               alt="About Image"
               className="img-fluid rounded-circle"
-              style={{ width: "250px", height: "250px" }}
+              style={{ width: "350px", height: "350px" }}
             />
           </div>
         </Col>
