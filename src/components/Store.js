@@ -4,30 +4,56 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import "./Store.css";
 import { productsArr } from "../data/product"; // Ensure the path is correct
 import CartContext from "../store/cart-context";
-import Spinner from "react-bootstrap/Spinner";
+
 const Store = () => {
   const [films, setFilms] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRetrying, setIsRetrying] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const fetchFilms = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("https://swapi.py4e.com/api/films");
+      if (!response.ok) {
+        throw new Error("Something went wrong... Retrying");
+      }
+      const data = await response.json();
+      setFilms(data.results);
+      setError(null);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+      setRetryCount((prevCount) => prevCount + 1);
+    }
+  };
 
   useEffect(() => {
-    const fetchFilms = async () => {
-      // setIsLoading(true);
-      try {
-        const response = await fetch("https://swapi.py4e.com/api/films");
-        const data = await response.json();
-        setFilms(data.results);
-        setIsLoading(true);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
+    let retryInterval;
+    if (error && isRetrying) {
+      retryInterval = setInterval(() => {
+        fetchFilms();
+      }, 5000);
+    }
+    return () => {
+      clearInterval(retryInterval);
     };
+  }, [error, isRetrying]);
+
+  useEffect(() => {
     fetchFilms();
   }, []);
+
+  const handleCancelRetry = () => {
+    setIsRetrying(false);
+    setError(null);
+  };
 
   const cartContext = useContext(CartContext);
 
@@ -81,7 +107,7 @@ const Store = () => {
       <div className="title">
         <h2>Movies</h2>
       </div>
-      {!isLoading && (
+      {!isLoading && !films.length && !error && (
         <Spinner
           animation="border"
           role="status"
@@ -90,47 +116,49 @@ const Store = () => {
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       )}
-      {isLoading && (
+      {error && (
+        <>
+          <p>{error}</p>
+          <Button variant="danger" onClick={handleCancelRetry}>
+            Cancel Retry
+          </Button>
+        </>
+      )}
+      {films.length > 0 && (
         <Container
           style={{
-            maxWidth: "960px",
+            maxWidth: "900px",
             margin: "0 auto",
             marginBottom: "25px",
-            // height: "350px",
           }}
         >
-          <Row className="justify-content-center">
+          <Row>
             {films.map((film, index) => (
-              <Col
-                key={index}
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                className="d-flex justify-content-center mb-4"
-              >
+              <Col key={index} xs={12} sm={6} md={4} lg={3}>
                 <Card
                   style={{
-                    // width: "18rem",
-                    margin: "auto",
-                    border: "2px solid gray",
                     height: "400px",
-                    // width: "650px",
+                    border: "none",
                     justifyContent: "space-between",
                   }}
                 >
                   <Card.Body>
-                    <Card.Title>{film.title}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
+                    <Card.Title style={{ height: "45px" }}>
+                      {film.title}
+                    </Card.Title>
+                    <Card.Subtitle
+                      className="mb-2 text-muted"
+                      style={{ height: "15px" }}
+                    >
                       Episode {film.episode_id}
                     </Card.Subtitle>
                     <Card.Text>
-                      {film.opening_crawl.substring(0, 60)}...
+                      {film.opening_crawl.substring(0, 40)}...
                     </Card.Text>
-                    <Card.Text>
+                    <Card.Text style={{ height: "45px" }}>
                       <strong>Director:</strong> {film.director}
                     </Card.Text>
-                    <Card.Text>
+                    <Card.Text style={{ height: "65px" }}>
                       <strong>Producer:</strong> {film.producer}
                     </Card.Text>
                     <Button
@@ -138,8 +166,6 @@ const Store = () => {
                       onClick={() => addCartHandler(film)}
                       style={{
                         height: "35px",
-                        position: "relative",
-                        bottom: "0px",
                       }}
                     >
                       Add to Cart
