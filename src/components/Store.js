@@ -20,8 +20,9 @@ const Store = () => {
     setIsLoading(true);
     try {
       const response = await fetch("https://swapi.py4e.com/api/films");
+      console.log(response.status);
       if (!response.ok) {
-        throw new Error("Something went wrong... Retrying");
+        throw new Error(`Something went wrong... Retrying ${retryCount}`);
       }
       const data = await response.json();
       setFilms(data.results);
@@ -29,6 +30,7 @@ const Store = () => {
       setIsLoading(false);
     } catch (error) {
       setError(error.message);
+      setIsRetrying(true);
       setIsLoading(false);
       setRetryCount((prevCount) => prevCount + 1);
     }
@@ -39,10 +41,12 @@ const Store = () => {
     if (error && isRetrying) {
       retryInterval = setInterval(() => {
         fetchFilms();
+        console.log("retrying");
       }, 5000);
     }
     return () => {
       clearInterval(retryInterval);
+      console.log("cleared");
     };
   }, [error, isRetrying]);
 
@@ -53,6 +57,7 @@ const Store = () => {
   const handleCancelRetry = () => {
     setIsRetrying(false);
     setError(null);
+    setIsLoading(true);
   };
 
   const cartContext = useContext(CartContext);
@@ -111,15 +116,19 @@ const Store = () => {
         <Spinner
           animation="border"
           role="status"
-          style={{ marginLeft: "48.5%" }}
+          style={{ marginLeft: "45.5%" }}
         >
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       )}
-      {error && (
+      {error && setIsRetrying && (
         <>
-          <p>{error}</p>
-          <Button variant="danger" onClick={handleCancelRetry}>
+          <p style={{ marginLeft: "45.5%", fontSize: "25px" }}>{error}</p>
+          <Button
+            variant="danger"
+            style={{ marginLeft: "45.5%" }}
+            onClick={handleCancelRetry}
+          >
             Cancel Retry
           </Button>
         </>
