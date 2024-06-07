@@ -114,7 +114,7 @@ const Store = () => {
                     // width: "18rem",
                     margin: "auto",
                     border: "2px solid gray",
-                    height: "350px",
+                    height: "400px",
                     // width: "650px",
                     justifyContent: "space-between",
                   }}
@@ -136,7 +136,11 @@ const Store = () => {
                     <Button
                       variant="primary"
                       onClick={() => addCartHandler(film)}
-                      style={{ height: "35px" }}
+                      style={{
+                        height: "35px",
+                        position: "relative",
+                        bottom: "0px",
+                      }}
                     >
                       Add to Cart
                     </Button>
