@@ -4,9 +4,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
 import Cart from "../components/Cart";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [show, setShow] = useState(false);
+
   return (
     <>
       <Navbar expand="lg" className="navbar" data-bs-theme="dark">
@@ -14,19 +16,19 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
-              <Nav.Link href="#home" className="mx-4">
+              <Nav.Link as={NavLink} to="/" className="mx-4">
                 Home
               </Nav.Link>
-              <Nav.Link href="#link" className="mx-4">
-                Link
+              <Nav.Link as={NavLink} to="/store" className="mx-4">
+                STORE
               </Nav.Link>
-              <Nav.Link href="#about" className="mx-4">
-                About{" "}
+              <Nav.Link as={NavLink} to="/about" className="mx-4">
+                ABOUT
               </Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link href="#cart" onClick={() => setShow(!show)}>
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

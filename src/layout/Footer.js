@@ -10,9 +10,14 @@ const Footer = () => {
         backgroundColor: "#56CCF2",
         color: "white",
         padding: "1rem",
+        position: "absolute",
+        bottom: "0px",
+        width: "100%",
+        marginTop: "5px",
+        height: "100px",
       }}
     >
-      <Container>
+      <Container style={{}}>
         <Row className="justify-content-between">
           <Col xs={12} md="auto">
             <h5 style={{ fontWeight: "bold", fontSize: "40px" }}>

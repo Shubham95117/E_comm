@@ -22,7 +22,9 @@ const MusicLists = () => {
       <div className="title">
         <h2>Music</h2>
       </div>
-      <Container style={{ maxWidth: "960px", margin: "0 auto" }}>
+      <Container
+        style={{ maxWidth: "960px", margin: "0 auto", marginBottom: "25px" }}
+      >
         <Row className="justify-content-center">
           {productsArr.map((product, index) => (
             <Col
