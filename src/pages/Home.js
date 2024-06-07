@@ -17,19 +17,49 @@ const concerts = [
 const Home = () => {
   return (
     <Container className="my-5" style={{ width: "800px" }}>
+      <div>
+        <h2
+          style={{
+            fontFamily: "Metal Mania",
+            textAlign: "center",
+            padding: "20px",
+            fontSize: "30px",
+            fontWeight: "bolder",
+          }}
+        >
+          TOURS
+        </h2>
+      </div>
       {concerts.map((concert, index) => (
         <Row key={index} className="align-items-center my-3">
-          <Col md={2} className="text-center" style={{ width: "35px" }}>
-            <h5>{concert.date}</h5>
+          <Col md={2} sm={2} className="text-center">
+            <h5 style={{ width: "80px", fontSize: "18px", color: "#777" }}>
+              {concert.date}
+            </h5>
           </Col>
-          <Col md={4} className="text-center">
-            <h5>{concert.city}</h5>
+          <Col md={4} sm={4} className="text-center">
+            <h5 style={{ width: "120px", fontSize: "14px", color: "#777" }}>
+              {concert.city}
+            </h5>
           </Col>
-          <Col md={4} className="text-center">
-            <h5>{concert.venue}</h5>
+          <Col md={4} sm={4} className="text-center">
+            <h5 style={{ width: "200px", fontSize: "14px", color: "#777" }}>
+              {concert.venue}
+            </h5>
           </Col>
-          <Col md={2} className="text-center">
-            <Button variant="primary">BUY TICKETS</Button>
+          <Col md={2} sm={2} className="text-center">
+            <Button
+              style={{
+                background: "rgb(86,204,242)",
+                border: "none",
+                width: "150px",
+                color: "white",
+                fontWeight: "bold",
+                marginBottom: "5px",
+              }}
+            >
+              BUY TICKETS
+            </Button>
           </Col>
           <hr />
         </Row>

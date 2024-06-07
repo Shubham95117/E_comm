@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MusicLists from "./components/MusicLists";
+import Store from "./components/Store";
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import About from "./pages/About";
@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/store" element={<MusicLists />} />
+            <Route path="/store" element={<Store />} />
           </Routes>
         </main>
         <Footer />

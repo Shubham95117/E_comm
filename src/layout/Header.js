@@ -5,6 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
 import Cart from "../components/Cart";
 import { NavLink, useLocation } from "react-router-dom";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -44,6 +45,9 @@ const Header = () => {
           className="fa fa-shopping-cart"
           aria-hidden="true"
           onClick={() => setShow(!show)}
+          style={{
+            cursor: "pointer",
+          }}
         ></i>
       </Navbar>
       <div className="header-title">

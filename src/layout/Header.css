@@ -61,6 +61,11 @@
     font-size: 25px;
 }
 
+.fa:hover {
+    color: aliceblue;
+    transform: scale(1.2);
+}
+
 .albumBtn {
     display: block;
     border: 1px solid #56CCF2;
