@@ -6,6 +6,7 @@ import About from "./pages/About";
 import CartProvider from "./store/CartProvider";
 import Home from "./pages/Home";
 import "./App.css";
+import Movies from "./pages/Movies";
 function App() {
   return (
     <CartProvider>
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/store" element={<Store />} />
+            <Route path="/movies" element={<Movies />} />
           </Routes>
         </main>
         <Footer />
