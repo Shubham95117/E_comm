@@ -41,6 +41,9 @@ const Header = () => {
               <Nav.Link as={NavLink} to="/about" className="mx-4">
                 ABOUT
               </Nav.Link>
+              <Nav.Link as={NavLink} to="/contact" className="mx-4">
+                CONTACT US
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

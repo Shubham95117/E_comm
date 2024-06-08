@@ -7,6 +7,7 @@ import CartProvider from "./store/CartProvider";
 import Home from "./pages/Home";
 import "./App.css";
 import Movies from "./pages/Movies";
+import Contact from "./pages/Contact";
 function App() {
   return (
     <CartProvider>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/store" element={<Store />} />
             <Route path="/movies" element={<Movies />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer />

@@ -91,6 +91,11 @@ const Movies = () => {
     console.log("Form submitted with values:", formValues);
     await addMovieHandler(formValues);
     fetchFilms(); // Fetch the updated list of movies after adding a new one
+    setFormValues({
+      title: "",
+      openingText: "",
+      releaseDate: "",
+    });
   };
 
   const addMovieHandler = async (movie) => {
@@ -227,7 +232,7 @@ const Movies = () => {
               <Col key={index} xs={12} sm={6} md={4} lg={3}>
                 <Card
                   style={{
-                    height: "400px",
+                    height: "250px",
                     border: "2px solid gray",
                     justifyContent: "space-between",
                     marginBottom: "10px",
@@ -239,7 +244,7 @@ const Movies = () => {
                     </Card.Title>
                     <Card.Subtitle
                       className="mb-2 text-muted"
-                      style={{ height: "15px" }}
+                      style={{ height: "45px" }}
                     >
                       Release Date: {film.releaseDate}
                     </Card.Subtitle>
