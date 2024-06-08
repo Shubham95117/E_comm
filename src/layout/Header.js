@@ -16,7 +16,7 @@ const Header = () => {
         <>
           <button className="albumBtn">Get Our Latest Album</button>
           <br />
-          <i class="fa fa-play playBtn" aria-hidden="true"></i>
+          <i className="fa fa-play playBtn" aria-hidden="true"></i>
         </>
       );
     }

@@ -22,15 +22,31 @@ const Movies = () => {
   const fetchFilms = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("https://swapi.py4e.com/api/films");
-      console.log(response.status);
+      const response = await fetch(
+        "https://react-http-fa735-default-rtdb.firebaseio.com/movies.json"
+      );
+
       if (!response.ok) {
         throw new Error(`Something went wrong... Retrying ${retryCount}`);
       }
+
       const data = await response.json();
-      setFilms(data.results);
+      const loadedMovies = [];
+
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      setFilms(loadedMovies);
       setError(null);
       setIsLoading(false);
+      setIsRetrying(false);
+      setRetryCount(0);
     } catch (error) {
       setError(error.message);
       setIsRetrying(true);
@@ -70,10 +86,59 @@ const Movies = () => {
     });
   };
 
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = async (e) => {
     e.preventDefault();
     console.log("Form submitted with values:", formValues);
-    // Add your form submission logic here
+    await addMovieHandler(formValues);
+    fetchFilms(); // Fetch the updated list of movies after adding a new one
+  };
+
+  const addMovieHandler = async (movie) => {
+    try {
+      const response = await fetch(
+        "https://react-http-fa735-default-rtdb.firebaseio.com/movies.json",
+        {
+          method: "POST",
+          body: JSON.stringify(movie),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to post data: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const data = await response.json();
+      console.log("Data posted successfully:", data);
+    } catch (error) {
+      console.error("Error posting data:", error);
+    }
+  };
+
+  const deleteMovieHandler = async (id) => {
+    try {
+      const response = await fetch(
+        `https://react-http-fa735-default-rtdb.firebaseio.com/movies/${id}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete data: ${response.status} ${response.statusText}`
+        );
+      }
+
+      console.log("Data deleted successfully");
+      fetchFilms(); // Fetch the updated list of movies after deleting a movie
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
   };
 
   return (
@@ -176,17 +241,17 @@ const Movies = () => {
                       className="mb-2 text-muted"
                       style={{ height: "15px" }}
                     >
-                      Episode {film.episode_id}
+                      Release Date: {film.releaseDate}
                     </Card.Subtitle>
                     <Card.Text>
-                      {film.opening_crawl.substring(0, 40)}...
+                      {film.openingText.substring(0, 40)}...
                     </Card.Text>
-                    <Card.Text style={{ height: "45px" }}>
-                      <strong>Director:</strong> {film.director}
-                    </Card.Text>
-                    <Card.Text style={{ height: "65px" }}>
-                      <strong>Producer:</strong> {film.producer}
-                    </Card.Text>
+                    <Button
+                      variant="danger"
+                      onClick={() => deleteMovieHandler(film.id)}
+                    >
+                      Delete
+                    </Button>
                   </Card.Body>
                 </Card>
               </Col>
