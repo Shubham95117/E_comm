@@ -57,7 +57,7 @@ const Contact = () => {
       </div>
       <Container
         style={{
-          background: "rgb(86,204,242)",
+          background: "rgb(119,119,119)",
           marginTop: "40px",
           maxWidth: "600px",
           margin: "0 auto",
@@ -95,10 +95,15 @@ const Contact = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
-            <Button type="submit" style={{ marginBottom: "10px" }}>
-              Submit
-            </Button>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {" "}
+              <Button
+                type="submit"
+                style={{ marginBottom: "10px", fontSize: "24px" }}
+              >
+                Submit
+              </Button>
+            </div>
           </Form>
         </Row>
       </Container>

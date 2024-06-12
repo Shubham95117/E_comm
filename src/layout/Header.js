@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
 import Cart from "../components/Cart";
 import { NavLink, useLocation } from "react-router-dom";
-import { hover } from "@testing-library/user-event/dist/hover";
+// import { hover } from "@testing-library/user-event/dist/hover";
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -24,26 +24,46 @@ const Header = () => {
   };
   return (
     <>
-      <Navbar expand="lg" className="navbar" data-bs-theme="dark">
+      <Navbar
+        expand="lg"
+        className="navbar position-fixed w-100 z-3"
+        data-bs-theme="dark"
+      >
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
-              <Nav.Link as={NavLink} to="/" className="mx-4">
+              <NavLink activeClassName="active" to="/" className="mx-3 NavLink">
                 HOME
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/store" className="mx-4">
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                to="/store"
+                className="mx-4 NavLink"
+              >
                 STORE
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/movies" className="mx-4">
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                to="/movies"
+                className="mx-4 NavLink"
+              >
                 MOVIES
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/about" className="mx-4">
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                to="/about"
+                className="mx-4 NavLink"
+              >
                 ABOUT
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/contact" className="mx-4">
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                to="/contact"
+                className="mx-4 NavLink"
+              >
                 CONTACT US
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -54,7 +74,9 @@ const Header = () => {
           style={{
             cursor: "pointer",
           }}
-        ></i>
+        >
+          <span style={{ margin: "3px" }}>cart</span>
+        </i>
       </Navbar>
       <div className="header-title">
         <h2>The Generics</h2>

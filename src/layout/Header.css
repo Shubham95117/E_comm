@@ -1,15 +1,21 @@
-.navbar-nav .nav-link {
-    font-size: 20px;
+.NavLink {
+    font-size: 18px;
     font-weight: 300;
     color: white;
     padding: 10px 20px;
     z-index: 15;
     padding-left: 45px;
+    text-decoration: none;
+    /* gap: 20px; */
+}
+
+.NavLink:hover {
+    transform: scale(1.2);
 }
 
 .navbar {
     background-color: black;
-    position: fixed;
+    position: sticky;
     top: 0px;
 }
 
@@ -20,6 +26,9 @@
     text-align: center;
     width: 100%;
     margin-bottom: 25px;
+    margin-top: 45px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .header-title h2 {
@@ -92,4 +101,13 @@
     background: inherit;
     color: #56CCF2;
 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.active {
+    color: gray;
 }

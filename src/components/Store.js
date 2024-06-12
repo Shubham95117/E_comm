@@ -1,21 +1,26 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
 import "./Store.css";
-import { productsArr } from "../data/product"; // Ensure the path is correct
+import { productsArr } from "../data/product";
 import CartContext from "../store/cart-context";
 
 const Store = () => {
   const cartContext = useContext(CartContext);
+  const history = useHistory();
 
   const addCartHandler = (item) => {
     cartContext.addItems(item);
     alert(`${item.title} added to cart`);
     console.log(cartContext.cartItems);
+  };
+
+  const viewProductHandler = (id) => {
+    history.push(`/product/${id}`);
   };
 
   return (
@@ -36,7 +41,14 @@ const Store = () => {
               lg={6}
               className="d-flex justify-content-center mb-4"
             >
-              <Card style={{ width: "300px", margin: "auto", border: "none" }}>
+              <Card
+                style={{
+                  width: "300px",
+                  margin: "auto",
+                  border: "none",
+                }}
+                onClick={() => viewProductHandler(product.id)}
+              >
                 <Card.Img variant="top" src={product.imageUrl} />
                 <Card.Body>
                   <Card.Title>{product.title}</Card.Title>
@@ -46,7 +58,10 @@ const Store = () => {
                     </Card.Text>
                     <Button
                       variant="primary"
-                      onClick={() => addCartHandler(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addCartHandler(product);
+                      }}
                       style={{ height: "35px" }}
                     >
                       Add to Cart

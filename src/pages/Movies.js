@@ -199,13 +199,16 @@ const Movies = () => {
         <h2>Movies</h2>
       </div>
       {isLoading && !films.length && !error && (
-        <Spinner
-          animation="border"
-          role="status"
-          style={{ marginLeft: "45.5%" }}
-        >
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <Container style={{ display: "flex", justifyContent: "center" }}>
+          {" "}
+          <Spinner
+            animation="border"
+            role="status"
+            // style={{ marginLeft: "45.5%" }}
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </Container>
       )}
       {error && isRetrying && (
         <>
@@ -229,7 +232,7 @@ const Movies = () => {
         >
           <Row>
             {films.map((film, index) => (
-              <Col key={index} xs={12} sm={6} md={4} lg={3}>
+              <Col key={index} xs={2} sm={2} md={2} lg={4}>
                 <Card
                   style={{
                     height: "250px",
