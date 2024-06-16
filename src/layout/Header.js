@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
 import Cart from "../components/Cart";
 import { NavLink, useLocation } from "react-router-dom";
-// import { hover } from "@testing-library/user-event/dist/hover";
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -75,7 +74,7 @@ const Header = () => {
             cursor: "pointer",
           }}
         >
-          <span style={{ margin: "3px" }}>cart</span>
+          <span style={{ margin: "3px" }}>Cart</span>
         </i>
       </Navbar>
       <div className="header-title">

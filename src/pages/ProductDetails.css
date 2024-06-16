@@ -1,0 +1,33 @@
+.images {
+    padding: 0 !important;
+    margin: 5px 0;
+    /* Adjust the margin as needed */
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+.w-100>.row {
+    margin-bottom: 10px;
+    /* Adjust this if needed */
+}
+
+img.mb-2 {
+    margin-bottom: 10px !important;
+}
+
+.icon {
+    padding: 3px 8px;
+    border-radius: 14px;
+    font-size: 12px;
+    background-color: #26a541;
+    vertical-align: baseline;
+    margin: 0 10px 0 0;
+    color: white;
+}
+
+/* .span_icon {
+    font-size: 14px;
+    color: rebeccapurple;
+} */

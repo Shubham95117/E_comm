@@ -9,6 +9,7 @@ import Movies from "./pages/Movies";
 import Contact from "./pages/Contact";
 import ProductDetail from "./pages/ProductDetails"; // Import the new component
 import "./App.css";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/store" component={Store} />
             <Route path="/movies" component={Movies} />
             <Route path="/contact" component={Contact} />
+            <Route path="/auth" component={AuthPage} />
             <Route path="/product/:id" component={ProductDetail} />{" "}
           </Switch>
         </main>
