@@ -6,7 +6,6 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -18,35 +17,34 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
-    setError(null);
+
+    const apiKey = "AIzaSyCmEAzz3GTiPcvj0nNcvvK3N8HXu_NYUOE";
+    const url = isLogin
+      ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`
+      : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
 
     try {
-      const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:${
-          isLogin ? "signInWithPassword" : "signUp"
-        }?key=AIzaSyCmEAzz3GTiPcvj0nNcvvK3N8HXu_NYUOE`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error.message || "Authentication failed!");
       }
 
-      console.log(data);
+      console.log("ID Token:", data.idToken);
       // Handle successful authentication (e.g., store token, redirect user, etc.)
     } catch (err) {
-      setError(err.message);
+      alert(err.message);
     }
 
     setIsLoading(false);
@@ -58,7 +56,13 @@ const AuthForm = () => {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" ref={emailInputRef} required />
+          <input
+            type="email"
+            id="email"
+            ref={emailInputRef}
+            required
+            autoComplete="email"
+          />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
@@ -67,6 +71,7 @@ const AuthForm = () => {
             id="password"
             ref={passwordInputRef}
             required
+            autoComplete={isLogin ? "current-password" : "new-password"}
           />
         </div>
         <div className={classes.actions}>
@@ -82,7 +87,6 @@ const AuthForm = () => {
             {isLogin ? "Create new account" : "Login with existing account"}
           </button>
         </div>
-        {error && <p className={classes.error}>{error}</p>}
       </form>
     </section>
   );
