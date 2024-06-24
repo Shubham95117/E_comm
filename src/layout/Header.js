@@ -61,7 +61,14 @@ const Header = () => {
                 to="/contact"
                 className="mx-4 NavLink"
               >
-                CONTACT US
+                CONTACT
+              </NavLink>
+              <NavLink
+                activeClassName="active"
+                to="/auth"
+                className="mx-4 NavLink"
+              >
+                Login
               </NavLink>
             </Nav>
           </Navbar.Collapse>

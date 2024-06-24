@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Container, Spinner } from "react-bootstrap"; // Assuming you're using React Bootstrap
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
@@ -14,7 +15,7 @@ const AuthForm = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+    const enteredPassword = emailInputRef.current.value;
 
     setIsLoading(true);
 
@@ -37,6 +38,7 @@ const AuthForm = () => {
       });
 
       const data = await response.json();
+
       if (!response.ok) {
         throw new Error(data.error.message || "Authentication failed!");
       }
@@ -78,14 +80,22 @@ const AuthForm = () => {
           {!isLoading && (
             <button>{isLogin ? "Login" : "Create Account"}</button>
           )}
-          {isLoading && <p>Sending request...</p>}
-          <button
-            type="button"
-            className={classes.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? "Create new account" : "Login with existing account"}
-          </button>
+          {isLoading && (
+            <Container style={{ display: "flex", justifyContent: "center" }}>
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </Container>
+          )}
+          {!isLoading && (
+            <button
+              type="button"
+              className={classes.toggle}
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? "Create new account" : "Login with existing account"}
+            </button>
+          )}
         </div>
       </form>
     </section>
