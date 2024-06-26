@@ -1,12 +1,16 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { useHistory } from "react-router-dom"; // Import useHistory hook
 import { Container, Spinner } from "react-bootstrap"; // Assuming you're using React Bootstrap
 import classes from "./AuthForm.module.css";
+import AuthContext from "../../store/auth-context";
 
 const AuthForm = () => {
+  const authCtx = useContext(AuthContext);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory(); // Initialize useHistory hook
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -15,11 +19,12 @@ const AuthForm = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
 
-    const apiKey = "AIzaSyCmEAzz3GTiPcvj0nNcvvK3N8HXu_NYUOE";
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    console.log(apiKey);
     const url = isLogin
       ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`
       : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
@@ -44,7 +49,9 @@ const AuthForm = () => {
       }
 
       console.log("ID Token:", data.idToken);
-      // Handle successful authentication (e.g., store token, redirect user, etc.)
+      authCtx.login(data.idToken);
+
+      history.replace("/store");
     } catch (err) {
       alert(err.message);
     }

@@ -68,7 +68,7 @@ const Header = () => {
                 to="/auth"
                 className="mx-4 NavLink"
               >
-                Login
+                LogIn
               </NavLink>
             </Nav>
           </Navbar.Collapse>
