@@ -24,7 +24,6 @@ const AuthForm = () => {
     setIsLoading(true);
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-    console.log(apiKey);
     const url = isLogin
       ? `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`
       : `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
@@ -48,8 +47,7 @@ const AuthForm = () => {
         throw new Error(data.error.message || "Authentication failed!");
       }
 
-      console.log("ID Token:", data.idToken);
-      authCtx.login(data.idToken);
+      authCtx.login(data.idToken, enteredEmail); // Pass the email to login
 
       history.replace("/store");
     } catch (err) {

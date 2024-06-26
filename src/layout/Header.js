@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./Header.css";
 import Cart from "../components/Cart";
 import { NavLink, useLocation } from "react-router-dom";
+import AuthContext from "../store/auth-context";
 
 const Header = () => {
+  const authCtx = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const location = useLocation();
   const renderPlayButton = () => {
@@ -20,6 +22,10 @@ const Header = () => {
       );
     }
     return null;
+  };
+  const logoutHandler = () => {
+    authCtx.logout();
+    setShow(false);
   };
   return (
     <>
@@ -68,21 +74,29 @@ const Header = () => {
                 to="/auth"
                 className="mx-4 NavLink"
               >
-                LogIn
+                {!authCtx.isLoggedIn ? (
+                  "LOGIN"
+                ) : (
+                  <button onClick={logoutHandler}>LogOut</button>
+                )}
               </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
-        <i
-          className="fa fa-shopping-cart"
-          aria-hidden="true"
-          onClick={() => setShow(!show)}
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          <span style={{ margin: "3px" }}>Cart</span>
-        </i>
+        {authCtx.isLoggedIn ? (
+          <i
+            className="fa fa-shopping-cart"
+            aria-hidden="true"
+            onClick={() => setShow(!show)}
+            style={{
+              cursor: "pointer",
+            }}
+          >
+            <span style={{ margin: "3px" }}>Cart</span>
+          </i>
+        ) : (
+          ""
+        )}
       </Navbar>
       <div className="header-title">
         <h2>The Generics</h2>

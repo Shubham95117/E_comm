@@ -16,7 +16,7 @@ import ProductDetail from "./pages/ProductDetails";
 import "./App.css";
 import AuthPage from "./pages/AuthPage";
 import { useContext } from "react";
-import AuthContext, { AuthContextProvider } from "./store/auth-context";
+import AuthContext from "./store/auth-context";
 
 function App() {
   const authCtx = useContext(AuthContext);
